@@ -1,12 +1,22 @@
 <!DOCTYPE HTML>
 <html>
 <body>
-<h1 id="mytitle">Web Page to Show Attacks</h1>
+<h1 id="instructorInput">Instructor Input Goes Here</h1>
 
 <form action = "simple_serverQ.php"
-   <p> Enter name: <input type="text" name="mydata" />
+   <p> Name: <input type="text" name="mydata" /> </p>
+</form>
 
- </p>
+<h1 id="studentInput">Student Input Goes Here</h1>
+
+<form action = "student_server.php" method="post">
+  <p> Name: <input type="text" name="studentData"> </p>
+</form>
+
+<h1 id="displayStudents">Display of all Students Goes Here</h1>
+
+<form action = "student_server.php" method="post">
+  <p> Name </p>
 </form>
 
 <body>
