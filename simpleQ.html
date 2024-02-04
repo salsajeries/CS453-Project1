@@ -10,14 +10,42 @@
 <h1 id="studentInput">Student Input Goes Here</h1>
 
 <form action = "student_server.php" method="post">
-  <p> Name: <input type="text" name="studentData"> </p>
+  <p> First Name: <input type="text" name="fname"> </p>
+  <p> Last Name: <input type="text" name="lname"> </p>
+  <button type="button" onclick="doAJAXstuff(this.form)">Add Student</button>
 </form>
 
 <h1 id="displayStudents">Display of all Students Goes Here</h1>
 
 <form action = "student_server.php" method="post">
-  <p> Name </p>
+  <p id="lastNameEntered"> Name </p>
+  <button type="button" onclick="AJAXrefresh(this.form)">REFRESH</button>
 </form>
+
+
+<script type="text/javascript">
+  function doAJAXstuff(theform) {
+      var request = new XMLHttpRequest();
+      request.open("GET", "student_server.php?fname=" + theform.fname.value);
+      console.log(request);
+      request.send();
+  }
+
+  function AJAXrefresh(theform) {
+      var request = new XMLHttpRequest();
+      request.open("GET", "student_server.php?lastValue");
+
+      request.onreadystatechange = function () {
+          if (request.readyState == 4 && request.status == 200) {
+              document.getElementById("lastNameEntered").innerHTML = request.responseText;
+          }
+      };
+
+      console.log(request);
+      request.send();
+  }
+</script>
+
 
 <body>
 </html>
