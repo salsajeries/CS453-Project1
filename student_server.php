@@ -154,10 +154,27 @@
     $studentList = array();
 
     $courseParamsToRetrieve = ["course", "book1N", "book1P", "book1E", "pd1", "book2N", "book2P", "book2E", "pd2"];
+
+    // Turning values from AJAX into session variables
     $courseParams = isset($_SESSION["courseParams"]) ? $_SESSION["courseParams"] : array();
-    
     $courseList = isset($_SESSION["courseList"]) ? $_SESSION["courseList"] : array();
+
     
+    $bookList = array();
+    $bookList = isset($_SESSION["testBook"]) ? $_SESSION["testBook"] : array();
+
+    $bookObj1 = new Book("yes we can see the title", "publisher", "edition", "print date"); 
+    $bookObj2 = new Book("yes we can see the title 2", "publisher 2", "edition 2", "print date 2");
+    array_push($bookList, $bookObj1);
+    //array_push($bookList, $bookObj2);
+    $_SESSION["testBook"] = $bookList;
+    
+
+    //$bookObj = isset($_SESSION["testBook"]) ? $_SESSION["testBook"] : new Book(null, null, null, null);
+    //$bookObj = new Book("yes we can see the title", "publisher", "edition", "print date");
+    //$_SESSION["testBook"] = $bookObj;
+
+    // Loop that makes param array
     foreach ($courseParamsToRetrieve as $param) {
         if (isset($_REQUEST[$param])){
             $courseParams[$param] = $_REQUEST[$param];
@@ -189,7 +206,9 @@
         //    echo "<li>$item</li>";
         //}
 
-        echo end($courseParams); //THIS WORKS
+        //foreach ($booklist as $book) 
+
+        echo end($bookObj); //THIS WORKS
 
         //echo '<pre>' . ($courseParams["pd2"].value()) . '</pre>'; //THIS DOESN'T WORK LOL
 

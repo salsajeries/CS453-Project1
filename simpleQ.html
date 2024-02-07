@@ -6,7 +6,7 @@
 <h1 id="instructorInput">Instructor Input Goes Here</h1>
 
 
-<form action = "student_server.php" method="post">
+<form action = "test_server.php" method="post">
   <p> Course: <input type="text" name="course" /> </p>
 
   <p> Book 1 Title: <input type="text" name="book1N" /> </p>
@@ -18,7 +18,7 @@
   <p> Book 2 Publisher: <input type="text" name="book2P" /> </p>
   <p> Book 2 Edition: <input type="text" name="book2E" /> </p>
   <p> Print Date: <input type="text" name="pd2" /> </p>
-  <button type="button" onclick="AJAXsendCourse(this.form)">Add Course and Books</button>
+  <button type="button" onclick="AJAXsendCourseNew(this.form)">Add Course and Books</button>
 </form>
 
 <h1 id="studentInput">Student Input Goes Here</h1>
@@ -40,16 +40,78 @@
 
 <h1 id="displayStudents">Display of all Students Goes Here</h1>
 
-<form action = "student_server.php" method="post">
+<form action = "test_server.php" method="post">
   <p id="lastNameEntered"> Name </p>
   <button type="button" onclick="AJAXrefresh(this.form)">REFRESH</button>
+  <button type="button" onclick="getAllCourses()">GetAllCourses</button>
+  <button type="button" onclick="AJAXClear(this.form)">CLEAR</button>
 </form>
 
 
 <script type="text/javascript">
+
+function AJAXClear(theform) {
+      var request = new XMLHttpRequest();
+      request.open("GET", "test_server.php?requestType=clear");
+
+      request.onreadystatechange = function () {
+          if (request.readyState == 4 && request.status == 200) {
+              getAllCourses();
+          }
+      };
+
+      console.log(request);
+      request.send();
+  }
+
+function getAllCourses() {
+    var request = new XMLHttpRequest();
+    
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            // Parse the JSON response
+            var coursesArray = JSON.parse(request.responseText);
+
+            // Now you can work with the coursesArray as needed
+            console.log(coursesArray);
+        }
+    };
+
+    request.open("GET", "test_server.php?requestType=getAllCourses");
+    request.send();
+}
+
+function AJAXsendCourseNew(theform) {
+    var request = new XMLHttpRequest();
+    request.open("GET", "test_server.php?requestType=addCourse" +
+        "&course=" + theform.course.value +
+        "&book1N=" + theform.book1N.value +
+        "&book1P=" + theform.book1P.value +
+        "&book1E=" + theform.book1E.value +
+        "&pd1=" + theform.pd1.value +
+        "&book2N=" + theform.book2N.value +
+        "&book2P=" + theform.book2P.value +
+        "&book2E=" + theform.book2E.value +
+        "&pd2=" + theform.pd2.value
+    );
+
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            // Parse the JSON response
+            var courseObject = JSON.parse(request.responseText);
+
+            // Now you can work with the courseObject as needed
+            console.log(courseObject);
+        }
+    };
+
+    console.log(request);
+    request.send();
+}
+
   function AJAXsendCourse(theform) { 
       var request = new XMLHttpRequest();
-      request.open("GET", "student_server.php?course=" + theform.course.value +
+      request.open("GET", "test_server.php?course=" + theform.course.value +
         "&book1N=" + theform.book1N.value +
         "&book1P=" + theform.book1P.value +
         "&book1E=" + theform.book1E.value +
