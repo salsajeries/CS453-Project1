@@ -150,9 +150,12 @@
     $courseList = isset($_SESSION["courseList"]) ? $_SESSION["courseList"] : array();
     
     foreach ($courseParamsToRetrieve as $param) {
-        $courseParams[$param] = isset($_REQUEST[$param]) ? $_REQUEST[$param] : null;
-        array_push($courseList, $courseParams[$param]);
-        $_SESSION["courseList"] = $courseList;
+        if (isset($_REQUEST[$param])){
+            $courseParams[$param] = $_REQUEST[$param];
+            array_push($courseList, $courseParams[$param]);
+            $_SESSION["courseList"] = $courseList;
+        }
+        //$courseParams[$param] = isset($_REQUEST[$param]) ? $_REQUEST[$param] : null;
     }
 
     /*
