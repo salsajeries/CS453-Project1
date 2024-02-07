@@ -1,10 +1,24 @@
 <!DOCTYPE HTML>
 <html>
+<head>
+</head>
 <body>
 <h1 id="instructorInput">Instructor Input Goes Here</h1>
 
-<form action = "simple_serverQ.php"
-   <p> Name: <input type="text" name="mydata" /> </p>
+
+<form action = "student_server.php" method="post">
+  <p> Course: <input type="text" name="course" /> </p>
+
+  <p> Book 1 Title: <input type="text" name="book1N" /> </p>
+  <p> Book 1 Publisher: <input type="text" name="book1P" /> </p>
+  <p> Book 1 Edition: <input type="text" name="book1E" /> </p>
+  <p> Print Date: <input type="text" name="pd1" /> </p>
+
+  <p> Book 2 Title: <input type="text" name="book2N" /> </p>
+  <p> Book 2 Publisher: <input type="text" name="book2P" /> </p>
+  <p> Book 2 Edition: <input type="text" name="book2E" /> </p>
+  <p> Print Date: <input type="text" name="pd2" /> </p>
+  <button type="button" onclick="AJAXsendCourse(this.form)">Add Course and Books</button>
 </form>
 
 <h1 id="studentInput">Student Input Goes Here</h1>
@@ -12,6 +26,15 @@
 <form action = "student_server.php" method="post">
   <p> First Name: <input type="text" name="fname"> </p>
   <p> Last Name: <input type="text" name="lname"> </p>
+  <p> Course: <input type="text" name="course"> </p>
+
+  <p> Book 1 Title: <input type="text" name="course"> </p>
+  <p> Book 1 Publisher: <input type="text" name="course"> </p>
+  <p> Book 1 Edition: <input type="text" name="mydata" /> </p>
+
+  <p> Book 2 Title: <input type="text" name="course"> </p>
+  <p> Book 2 Publisher: <input type="text" name="course"> </p>
+  <p> Book 2 Edition: <input type="text" name="mydata" /> </p>
   <button type="button" onclick="doAJAXstuff(this.form)">Add Student</button>
 </form>
 
@@ -24,10 +47,19 @@
 
 
 <script type="text/javascript">
-  function doAJAXstuff(theform) {
+  function AJAXsendCourse(theform) { 
       var request = new XMLHttpRequest();
-      request.open("GET", "student_server.php?fname=" + theform.fname.value);
-      console.log(request);
+      request.open("GET", "student_server.php?course=" + theform.course.value +
+        "&book1N=" + theform.book1N.value +
+        "&book1P=" + theform.book1P.value +
+        "&book1E=" + theform.book1E.value +
+        "&pd1=" + theform.pd1.value +
+        "&book2N=" + theform.book2N.value +
+        "&book2P=" + theform.book2P.value +
+        "&book2E=" + theform.book2E.value +
+        "&pd2=" + theform.pd2.value
+      );
+      console.log(request); 
       request.send();
   }
 
@@ -37,13 +69,14 @@
 
       request.onreadystatechange = function () {
           if (request.readyState == 4 && request.status == 200) {
-              document.getElementById("lastNameEntered").innerHTML = request.responseText;
+              document.getElementById("lastNameEntered").innerHTML = request.responseText; // this part is the "callback". 
           }
       };
 
       console.log(request);
       request.send();
   }
+
 </script>
 
 
