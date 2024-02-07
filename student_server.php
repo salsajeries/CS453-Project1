@@ -1,33 +1,53 @@
 <?php 
 
-//session_start(); //for starting or resuming sessions
+session_destroy();
+session_start(); //for starting or resuming sessions
     
-/*
     class Course {
         // Properties
+        public $name;
         public $book1;
         public $book2;
 
         // Methods
-        function __construct($book1, $book2) {
-            set_book1($book1);
-            set_book2($book2);
+        public function __construct($name, $book1, $book2) {
+            $this->set_name($name);
+            $this->set_book1($book1);
+            $this->set_book2($book2);
         }
 
-        function set_book1($book) {
+        public function set_name($name) {
+            $this->name = $name;
+        }
+        
+        public function set_book1($book) {
             $this->book1 = $book;
         }
 
-        function set_book2($book) {
+        public function set_book2($book) {
             $this->book2 = $book;
         }
 
-        function get_book1() {
+        public function get_name() {
+            return $this->name;
+        }
+        
+        public function get_book1() {
             return $this->book1;
         }
 
-        function get_book2() {
+        public function get_book2() {
             return $this->book2;
+        }
+
+        public function printCourseDetails() {
+            $details = "<ul>\n";
+            $details .= "  <li>Course: {$this->get_name()}</li>\n";
+            $details .= "  <li>Book 1: {$this->get_book1()}</li>\n";
+            $details .= "  <li>Book 2: {$this->get_book2()}</li>\n";
+            $details .= "</ul>";
+    
+            return $details;
         }
 
     }
@@ -41,48 +61,48 @@
         public $printDate;
         
         //default constructor
-        function __construct($title, $publisher, $edition, $printDate) {
+        public function __construct($title, $publisher, $edition, $printDate) {
 
-            set_title($title);
-            set_publisher($publisher);
-            set_edition($edition);
-            set_printDate($printDate);
+            $this->set_title($title);
+            $this->set_publisher($publisher);
+            $this->set_edition($edition);
+            $this->set_printDate($printDate);
 
         }
         
 
         // Methods (set)
-        function set_title($title) {
+        public function set_title($title) {
             $this->title = $title;
         }
 
-        function set_publisher($publisher) {
+        public function set_publisher($publisher) {
             $this->publisher = $publisher;
         }
 
-        function set_edition($edition) {
+        public function set_edition($edition) {
             $this->edition = $edition;
         }
 
-        function set_printDate($printDate) {
+        public function set_printDate($printDate) {
             $this->printDate = $printDate;
         }
 
         //get methods v 
 
-        function get_title($title) {
+        public function get_title() {
            return $this->title;
         }
 
-        function get_publisher($publisher) {
+        public function get_publisher() {
             return $this->publisher;
         }
 
-        function get_edition($edition) {
+        public function get_edition() {
            return $this->edition;
         }
 
-        function get_printDate($printDate) {
+        public function get_printDate() {
            return $this->printDate;
         }
 
@@ -94,52 +114,58 @@
         // Properties
         public $name;
         public $course;
-        public $book1 = new Book();
-        public $book2 = new Book();
+        public $book1;
+        public $book2;
         
         // Methods
-        __construct($name, $course, $book1, $book2) {
-            set_name($name);
-            set_course($course);
-            set_book1($book1);
-            set_book2($book2);
+        public function __construct($name, $course, $book1, $book2) {
+            $this->set_name($name);
+            $this->set_course($course);
+            $this->set_book1($book1);
+            $this->set_book2($book2);
         }
 
         
-        function set_name($name) {
+        public function set_name($name) {
             $this->name = $name;
         }
 
-        function set_course($course) {
+        public function set_course($course) {
             $this->course = $course;
         }
 
-        function set_book1($book) {
+        public function set_book1($book) {
             $this->book1 = ($book);
         }
 
-        function set_book2($book) {
+        public function set_book2($book) {
             $this->book2 = $book;
         }
 
-        function get_name() {
+        public function get_name() {
             return $this->name;
         }
 
-        function get_course() {
+        public function get_course() {
             return $this->course;
         }
 
-        function get_book1() {
+        public function get_book1() {
             return $this->book1;
         }
 
-        function get_book2() {
+        public function get_book2() {
             return $this->book2;
         }
     }
-*/
-    session_start(); // Start or resume the session
+
+    //session_start(); // Start or resume the session
+    $bookObj = new Book("yes we can see the title", "publisher", "edition", "print date");
+    $studentObj = new Student("some name", $courseObj, $bookObj, $bookObj);
+
+    $tempBook1;
+    $tempBook2;
+    $pleaseRead;
 
     $courseList = array();
     $studentList = array();
@@ -159,7 +185,26 @@
     }
 
     /*
-    if (isset($_REQUEST["course"])) {
+    if (isset($_REQUEST["func"])) {
+        if (isset($_REQUEST["course"])){
+            $pleaseRead = $_REQUEST["course"];
+            $_SESSION["courseList"] = $pleaseRead;
+        }
+        // Make book 1 and 2
+        //$pleaseRead = $_REQUEST["course"];
+        //$tempBook1 = new Book($_REQUEST["book1N"], $_REQUEST["book1P"], $_REQUEST["book1E"], $_REQUEST["pd1"]);
+        //$tempBook2 = new Book($_REQUEST["book2N"], $_REQUEST["book2P"], $_REQUEST["book2E"], $_REQUEST["pd2"]);
+
+        // Make course
+        //$tempCourse = new Course($_REQUEST["course"], $tempBook1, $tempBook2);
+
+        // Add the course to courseList
+        //array_push($courseList, $tempCourse);
+    }
+    */
+
+    /*
+    if (isset(??_/..>llL..$courseObj["course"])) {
         $mydata = $_REQUEST["course"];
         array_push($courseList, $mydata); 
         $_SESSION["courseList"] = $courseList; // Store the updated array in the session
@@ -194,5 +239,3 @@
         echo $lastValue;
     }
     */
-  
-?>

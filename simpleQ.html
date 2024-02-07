@@ -47,9 +47,11 @@
 
 
 <script type="text/javascript">
+  // Send course
   function AJAXsendCourse(theform) { 
       var request = new XMLHttpRequest();
-      request.open("GET", "student_server.php?course=" + theform.course.value +
+      request.open("GET", "student_server.php?func=addCourse" + 
+        "&course=" + theform.course.value +
         "&book1N=" + theform.book1N.value +
         "&book1P=" + theform.book1P.value +
         "&book1E=" + theform.book1E.value +
