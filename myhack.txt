@@ -1,8 +1,0 @@
-<script>
-var request = new XMLHttpRequest();
-request.open("GET", "simple_serverB.php", true);
-request.send();
-request.onreadystatechange = function () {
-  alert(request.responseText);
-}
-</script>
